@@ -77,8 +77,8 @@ func (c EtlStruct) WriteToLog(in <-chan LogEntry, wg *sync.WaitGroup) {
 			fmt.Println("Error opening file:", err)
 			return
 		}
-		defer file.Close()
 		writer := bufio.NewWriter(file)
+		file.Close()
 		_, err = writer.WriteString(fmt.Sprintf("%s|%s|%s\n", logEntry.TimeStamp, logEntry.Level, logEntry.Message))
 		if err != nil {
 			fmt.Println("Error writing to file:", err)
